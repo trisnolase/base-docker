@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  app:
+    build:
+      context: .docker
+      dockerfile: Dockerfile
+    container_name: app_name
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./.docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./.docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./.docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+    networks:
+      - name
+
+  # db:
+  #   image: mariadb:latest
+  #   container_name: mysql_name
+  #   restart: unless-stopped
+  #   environment:
+  #     MYSQL_DATABASE: homestead
+  #     MYSQL_USER: homestead
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     SERVICE_TAGS: dev
+  #     SERVICE_NAME: mysql
+  #   ports:
+  #     - "3389:3306"
+  #   volumes:
+  #     - ./.docker/dbdata:/var/lib/mysql
+  #     - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+  #   networks:
+  #     - name
+  
+  nginx:
+    image: nginx:latest
+    container_name: nginx_name
+    restart: unless-stopped
+    ports:
+      - "81:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx:/etc/nginx/conf.d
+    networks:
+      - name
+networks:
+  name:
+    driver: bridge
+    # "db_service" bisa berubah sesuai dengan service mysql yang dijalankan melalui compose
+    # tidak perlu jika menggunakan service db diluar container, komen saja dua baris dibawah
+    name: db_service
+    external: true
