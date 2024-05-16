@@ -47,8 +47,10 @@ services:
       - name
 networks:
   name:
-    driver: bridge
+    # uncommet satu baris "driver: bridge" jika ada masalah dengan koneksi
+    # driver: bridge
+
     # "db_service" bisa berubah sesuai dengan service mysql yang dijalankan melalui compose
-    # tidak perlu jika menggunakan service db diluar container, komen saja dua baris dibawah
+    # jika menggunakan db diluar container seperti xampp atau lainnya, commet saja dua baris dibawah
     name: db_service
     external: true
