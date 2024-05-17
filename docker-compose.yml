@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   app:
+    image: app_name:1.0.0
     build:
       context: .docker
       dockerfile: Dockerfile
