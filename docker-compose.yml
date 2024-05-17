@@ -16,7 +16,7 @@ services:
       - name
 
   # db:
-  #   image: mariadb:latest
+  #   image: mariadb:10.11.7
   #   container_name: mysql_name
   #   restart: unless-stopped
   #   environment:
@@ -35,7 +35,7 @@ services:
   #     - name
   
   nginx:
-    image: nginx:latest
+    image: nginx:1.26.0
     container_name: nginx_name
     restart: unless-stopped
     ports:
@@ -51,6 +51,6 @@ networks:
     # driver: bridge
 
     # "db_service" bisa berubah sesuai dengan service mysql yang dijalankan melalui compose
-    # jika menggunakan db diluar container seperti xampp atau lainnya, commet saja dua baris dibawah
+    # jika menggunakan db diluar container seperti xampp atau lainnya, comment saja dua baris dibawah
     name: db_service
     external: true
